@@ -2,11 +2,21 @@
    FlowList — Client-side logic
    ═══════════════════════════════════════ */
 
+// ── Mode detection ──
+const params = new URLSearchParams(window.location.search);
+const isCompact = params.has('compact') || params.get('mode') === 'compact';
+const isEmbed = params.has('embed') || params.get('mode') === 'embed';
+const initView = params.get('view');
+
+if (isCompact || isEmbed) document.body.classList.add('compact');
+if (isEmbed) document.body.classList.add('embed');
+
 // ── State ──
-let currentView = 'inbox';
+let currentView = initView || 'today';
 let currentEntityId = '';
 let selectedTaskId = null;
 let saveTimer = null;
+let sidebarCollapsed = isCompact || isEmbed;
 
 const VIEW_CONFIG = {
   inbox:    { title: 'Inbox',    color: '#007aff', icon: 'inbox' },
@@ -561,8 +571,22 @@ function hexToRgba(hex, alpha) {
   return `rgba(${r},${g},${b},${alpha})`;
 }
 
+// ── Sidebar toggle ──
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebarCollapsed = !sidebarCollapsed;
+  sidebar.classList.toggle('collapsed', sidebarCollapsed);
+}
+
 // ── Init ──
 (async () => {
+  if (sidebarCollapsed) {
+    document.getElementById('sidebar').classList.add('collapsed');
+  }
+  // Default to "today" in compact/embed, "inbox" in full
+  if (!initView && !isCompact && !isEmbed) {
+    currentView = 'inbox';
+  }
   await loadSidebar();
   await loadTasks();
 })();

@@ -765,5 +765,122 @@ body {
   gap: 8px;
 }
 
+/* ── Sidebar toggle ── */
+
+.sidebar-top-bar {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px 4px;
+}
+
+#sidebar-toggle {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+#sidebar-toggle:hover {
+  background: rgba(0,0,0,0.06);
+  color: var(--text-primary);
+}
+
+/* ── Compact / Collapsed sidebar ── */
+
+#sidebar.collapsed {
+  width: 52px;
+  min-width: 52px;
+  padding: 8px 4px;
+}
+
+#sidebar.collapsed .sidebar-top-bar {
+  justify-content: center;
+  padding: 6px 0 4px;
+}
+
+#sidebar.collapsed .nav-label,
+#sidebar.collapsed .nav-count,
+#sidebar.collapsed .section-header span,
+#sidebar.collapsed .section-add-btn,
+#sidebar.collapsed .sidebar-section,
+#sidebar.collapsed .sidebar-separator {
+  display: none;
+}
+
+#sidebar.collapsed .nav-item {
+  justify-content: center;
+  padding: 8px;
+  margin: 1px 2px;
+}
+
+#sidebar.collapsed .nav-item .nav-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* ── Compact mode (query param) ── */
+
+body.compact #sidebar {
+  width: 52px;
+  min-width: 52px;
+  padding: 8px 4px;
+}
+
+body.compact #sidebar .nav-label,
+body.compact #sidebar .nav-count,
+body.compact #sidebar .section-header span,
+body.compact #sidebar .section-add-btn,
+body.compact #sidebar .sidebar-section,
+body.compact #sidebar .sidebar-separator {
+  display: none;
+}
+
+body.compact #sidebar .sidebar-top-bar {
+  justify-content: center;
+  padding: 6px 0 4px;
+}
+
+body.compact #sidebar .nav-item {
+  justify-content: center;
+  padding: 8px;
+  margin: 1px 2px;
+}
+
+body.compact #list-header { padding: 16px 20px 6px; }
+body.compact #view-title { font-size: 20px; }
+body.compact #new-task-bar { padding: 6px 14px; }
+body.compact #new-task-input { padding: 8px 12px; font-size: 13px; }
+
+body.compact #detail-panel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 50;
+  box-shadow: -8px 0 30px rgba(0,0,0,0.10);
+  width: 320px;
+  min-width: 320px;
+}
+
+body.compact .task-item { padding: 8px 10px; gap: 10px; }
+
+/* ── Embed mode (no chrome, fills container) ── */
+
+body.embed {
+  background: transparent;
+}
+
+body.embed #app {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--separator);
+}
+
 /* Utility */
 .hidden { display: none !important; }
